@@ -5,12 +5,12 @@
 const reponse = await fetch("pieces-autos.json");
 const pieces = await reponse.json()
 
-/*  ________________________________
-    Création des différentes balises
-    ________________________________    */
-
-
 for (let i = 0; i < pieces.length; i++) {
+    
+    /*  ________________________________
+        Création des différentes balises
+        ________________________________    */
+    
     const article = pieces[i];
 
     const imageElement = document.createElement("img");
@@ -58,6 +58,10 @@ for (let i = 0; i < pieces.length; i++) {
     //____________________________________________________
 }
 
+/*  __________________________________
+    Création des boutons de tri/filtre
+    __________________________________  */
+
 const btnTrierCroissant = document.querySelector(".btn-trier-croissant");
 btnTrierCroissant.addEventListener("click", () => {
     const piecesOrdonees = Array.from(pieces)
@@ -96,3 +100,47 @@ btnFiltrerDescription.addEventListener("click", () => {
 });
 
 //____________________________________________________________________________________
+
+
+/*  _______________________________________
+    Remplissage de la section 'fiches'
+    _______________________________________    */
+
+const nomsAbordables = pieces.map(piece => piece.nom);
+for (let i = pieces.length - 1; i >= 0; i--) {
+    if (pieces[i].prix > 35) {
+        nomsAbordables.splice(i,1);
+    };
+};
+
+const abordablesElements = document.createElement("ul");
+for (let i = 0; i < nomsAbordables.length; i++) {
+    const nomElement = document.createElement("li");
+    nomElement.innerText = nomsAbordables[i];
+    abordablesElements.appendChild(nomElement);
+}
+
+document.querySelector(".abordables").appendChild(abordablesElements);
+
+//____________________________________________________________________
+//Exercice P2C2 - Ajout des pièces disponibles avec leur prix
+
+const nomsDisponibles = pieces.map(piece => piece.nom);
+const prixDisponibles = pieces.map(piece => piece.prix);
+for (let i = pieces.length - 1; i >= 0; i--) {
+    if (!pieces[i].disponibilité) {
+        nomsDisponibles.splice(i,1);
+        prixDisponibles.splice(i,1);
+    };
+};
+
+const disponiblesElements = document.createElement("ul");
+for (let i = 0; i < nomsDisponibles.length; i++) {
+    const nomElement = document.createElement("li");
+    nomElement.innerText = `${nomsDisponibles[i]} - ${prixDisponibles[i]} €`;
+    disponiblesElements.appendChild(nomElement);
+}
+
+document.querySelector(".disponibles").appendChild(disponiblesElements);
+
+//____________________________________________________________________
