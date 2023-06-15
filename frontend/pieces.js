@@ -54,11 +54,12 @@ for (let i = 0; i < pieces.length; i++) {
 
     pieceElement.appendChild(descriptionElement);
     pieceElement.appendChild(stockElement);
+
     //____________________________________________________
 }
 
-const btnTrier = document.querySelector(".btn-trier");
-btnTrier.addEventListener("click", () => {
+const btnTrierCroissant = document.querySelector(".btn-trier-croissant");
+btnTrierCroissant.addEventListener("click", () => {
     const piecesOrdonees = Array.from(pieces)
     piecesOrdonees.sort(function (a,b) {
         return a.prix - b.prix;
@@ -67,9 +68,31 @@ btnTrier.addEventListener("click", () => {
     console.log(piecesOrdonees);
 });
 
-const btnFiltrer = document.querySelector(".btn-filtrer");
-btnFiltrer.addEventListener("click", () => {
-    const piecesFiltrees = pieces.filter(pieces => pieces.prix < 35);
+const btnFiltrerPrix = document.querySelector(".btn-filtrer-prix");
+btnFiltrerPrix.addEventListener("click", () => {
+    const piecesFiltrees = pieces.filter(piece => piece.prix < 35);
     console.log(pieces);
     console.log(piecesFiltrees);
 });
+
+//____________________________________________________________________________________
+//Exercice P2C1 - Ajouter le tri décroissant et le filtre des pièces sans description
+
+const btnTrierDecroissant = document.querySelector(".btn-trier-decroissant");
+btnTrierDecroissant.addEventListener("click", () => {
+    const piecesOrdonees = Array.from(pieces)
+    piecesOrdonees.sort(function (a,b) {
+        return b.prix - a.prix;
+    });
+    console.log(pieces);
+    console.log(piecesOrdonees);
+});
+
+const btnFiltrerDescription = document.querySelector(".btn-filtrer-description");
+btnFiltrerDescription.addEventListener("click", () => {
+    const piecesFiltrees = pieces.filter(piece => piece.description != undefined);
+    console.log(pieces);
+    console.log(piecesFiltrees);
+});
+
+//____________________________________________________________________________________
