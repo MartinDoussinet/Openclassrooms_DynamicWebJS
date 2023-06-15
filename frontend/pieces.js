@@ -56,3 +56,20 @@ for (let i = 0; i < pieces.length; i++) {
     pieceElement.appendChild(stockElement);
     //____________________________________________________
 }
+
+const btnTrier = document.querySelector(".btn-trier");
+btnTrier.addEventListener("click", () => {
+    const piecesOrdonees = Array.from(pieces)
+    piecesOrdonees.sort(function (a,b) {
+        return a.prix - b.prix;
+    });
+    console.log(pieces);
+    console.log(piecesOrdonees);
+});
+
+const btnFiltrer = document.querySelector(".btn-filtrer");
+btnFiltrer.addEventListener("click", () => {
+    const piecesFiltrees = pieces.filter(pieces => pieces.prix < 35);
+    console.log(pieces);
+    console.log(piecesFiltrees);
+});
