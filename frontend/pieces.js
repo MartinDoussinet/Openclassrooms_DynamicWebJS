@@ -1,36 +1,58 @@
-// Récupération des pièces depuis le fichier JSON
+/*  ______________________________________________
+    Récupération des pièces depuis le fichier JSON
+    ______________________________________________  */
+
 const reponse = await fetch("pieces-autos.json");
 const pieces = await reponse.json()
 
-// Création des différentes balises
-const article = pieces[0];
+/*  ________________________________
+    Création des différentes balises
+    ________________________________    */
 
-const imageElement = document.createElement("img");
-imageElement.src = article.image;
 
-const nomElement = document.createElement("h2");
-nomElement.innerText = article.nom;
+for (let i = 0; i < pieces.length; i++) {
+    const article = pieces[i];
 
-const prixElement = document.createElement("p");
-prixElement.innerText = `Prix: ${article.prix} € (${article.prix < 35 ? "€" : "€€€"})`;
+    const imageElement = document.createElement("img");
+    imageElement.src = article.image;
 
-const categorieElement = document.createElement("p");
-categorieElement.innerText = article.categorie ?? "(aucune catégorie)";
+    const nomElement = document.createElement("h2");
+    nomElement.innerText = article.nom;
 
-// Exercice P1C4
-const descriptionElement = document.createElement("p");
-descriptionElement.innerText = article.description ?? "Pas de description pour le moment.";
+    const prixElement = document.createElement("p");
+    prixElement.innerText = `Prix: ${article.prix} € (${article.prix < 35 ? "€" : "€€€"})`;
 
-const stockElement = document.createElement("p");
-stockElement.innerText = article.disponibilité ? "En stock" : "Rupture de stock";
+    const categorieElement = document.createElement("p");
+    categorieElement.innerText = article.categorie ?? "(aucune catégorie)";
 
-// On rattache les balises au DOM
-const sectionFiches = document.querySelector(".fiches");
+    //__________________________________________________________________________________________
+    //Exercice P1C4 - Ajout de la description et du stock
 
-sectionFiches.appendChild(imageElement);
-sectionFiches.appendChild(nomElement);
-sectionFiches.appendChild(prixElement);
-sectionFiches.appendChild(categorieElement);
-// Exercice P1C4
-sectionFiches.appendChild(descriptionElement);
-sectionFiches.appendChild(stockElement);
+    const descriptionElement = document.createElement("p");
+    descriptionElement.innerText = article.description ?? "Pas de description pour le moment.";
+
+    const stockElement = document.createElement("p");
+    stockElement.innerText = article.disponibilité ? "En stock" : "Rupture de stock";
+    //__________________________________________________________________________________________
+
+    /*  ______________________________
+        On rattache les balises au DOM
+        ______________________________  */
+
+    const sectionFiches = document.querySelector(".fiches");
+
+    const pieceElement = document.createElement("article");
+    sectionFiches.appendChild(pieceElement)
+
+    pieceElement.appendChild(imageElement);
+    pieceElement.appendChild(nomElement);
+    pieceElement.appendChild(prixElement);
+    pieceElement.appendChild(categorieElement);
+
+    //____________________________________________________
+    //Exercice P1C4 - Ajout de la description et du stock
+
+    pieceElement.appendChild(descriptionElement);
+    pieceElement.appendChild(stockElement);
+    //____________________________________________________
+}
