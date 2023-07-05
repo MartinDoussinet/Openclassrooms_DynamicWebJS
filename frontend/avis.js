@@ -15,9 +15,33 @@ export function ajoutListenersAvis() {
             const avisElement = document.createElement("p");
             for (let i = 0; i < avis.length; i++) {
                 avisElement.innerHTML += `<b>${avis[i].utilisateur}:</b> ${avis[i].commentaire} <br>`;
-            }
-            
+            }            
             pieceElement.appendChild(avisElement);
         })
     }
+}
+
+export function ajoutListenersEnvoyerAvis() {
+    const formulaireAvis = document.querySelector(".formulaire-avis");
+    formulaireAvis.addEventListener("submit", function (event) {
+        
+        //on empêche la page de changer l'URL
+        event.preventDefault();
+        
+        //création du body de la requête
+        const avis = {
+            pieceId: parseInt(event.target.querySelector("[name=piece-id]").value),
+            utilisateur: event.target.querySelector("[name=utilisateur]").value,
+            commentaire: event.target.querySelector("[name=commentaire]").value,
+            nbEtoiles: parseInt(event.target.querySelector("[name=nbEtoiles]").value)
+        };
+        const chargeUtile = JSON.stringify(avis);
+
+        //envoie de la requête au serveur
+        fetch("http://localhost:8081/avis", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: chargeUtile
+        });
+    })
 }
