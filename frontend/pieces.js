@@ -1,7 +1,7 @@
 import { ajoutListenersAvis } from "./avis.js";
 
 // Récupération des pièces depuis le fichier JSON
-const pieces = await fetch("pieces-autos.json").then(pieces => pieces.json());
+const pieces = await fetch("http://localhost:8081/pieces").then(pieces => pieces.json());
 
 function genererPieces(pieces){
     for (let i = 0; i < pieces.length; i++) {
@@ -108,7 +108,7 @@ for(let i = pieces.length -1 ; i >= 0; i--){
         noms.splice(i,1);
     }
 }
-console.log(noms)
+
 //Création de l'en-tête
 
 const pElement = document.createElement('p')
